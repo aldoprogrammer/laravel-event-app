@@ -8,4 +8,59 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'description',
+        'start_date',
+        'end_date',
+        'start_time',
+        'image',
+        'address',
+        'user_id',
+        'country_id',
+        'city_id',
+        'num_tickets'
+    ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function attendings(): HasMany
+    {
+        return $this->hasMany(Attending::class);
+    }
+
+    public function tags(): belongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
